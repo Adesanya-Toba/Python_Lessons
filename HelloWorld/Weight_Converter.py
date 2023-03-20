@@ -1,3 +1,11 @@
+# Testing relative imports; from Python3 OOP - Dusty Phillips
+from .Classes import Point
+from .Fncs_wReturns import square
+
+this_point = Point()
+
+s = square(3)
+
 weight = float(input("Enter your weight: "))
 unit = input('(L)bs or (K)g: ')
 
