@@ -1,5 +1,6 @@
 import HelloWorld.Fncs_wReturns as f
 from Py3_OOP.classes import Dog
+import detect_os as detect
 
 # square = HelloWorld.Fncs_wReturns.square()
 new_Dog = Dog("Vix", 7)

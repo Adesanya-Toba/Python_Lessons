@@ -10,9 +10,9 @@ import os
 # from .HelloWorld.Classes import Point
 
 
-
 s3 = boto3.resource('s3')
 bucket = s3.Bucket('virtuallrwcardfleet')
+
 
 def is_object_exists(path:str, bucket) -> bool:
 
@@ -28,13 +28,6 @@ def is_folder_empty(folder_name:str):
 # for bucket in s3.buckets.all():
 #     print(bucket.name)
 #     pass
-
-# s3 = boto3.client('s3')
-# response = s3.list_buckets()
-
-# print("Existing buckets..")
-# for bucket in response['Buckets']:
-#     print(f'{bucket["Name"]}')
 
 
 def download_s3_folder(bucket_name, s3_folder, local_dir=None):
@@ -74,21 +67,60 @@ def get_asm_certs_s3():
         else:
             raise
 
-def main():
-    if is_object_exists('90/', bucket):
-        print("Directory exists!")
-    else:
-        print("Directory not found..")
+def check_bucket(bucketer):
+    try:
+        s3.meta.client.head_bucket(Bucket=bucketer)
+        print("Bucket Exists!")
+        return True
+    except botocore.exceptions.ClientError as e:
+        # If a client error is thrown, then check that it was a 404 error.
+        # If it was a 404 error, then the bucket does not exist.
+        error_code = int(e.response['Error']['Code'])
+        if error_code == 403:
+            print("Private Bucket. Forbidden Access!")
+            return True
+        elif error_code == 404:
+            print("Bucket Does Not Exist!")
+            return False
 
-    folder = "92/ASMCerts"
-    print(f"Number of items in {folder} folder: ")
-    is_folder_empty(folder)
+def main():
+    # if is_object_exists('90/', bucket):
+    #     print("Directory exists!")
+    # else:
+    #     print("Directory not found..")
+
+    # s3 = boto3.client('s3')
+    # response = s3.list_buckets()
+
+    # print("Existing buckets..")
+    # for bucket in response['Buckets']:
+    #     print(f'{bucket["Name"]}')
+
+    s3 = boto3.resource('s3')
+    bucketi = s3.Bucket('virtual-lrw-cards')
+
+    check_bucket('rtkdatalogchunks')
+
+    # if bucket.creation_date:
+    #     print("The bucket exists")
+    # else:
+    #     print("The bucket does not exist")
+
+    # folder = "92/ASMCerts"
+    # print(f"Number of items in {folder} folder: ")
+    # is_folder_empty(folder)
 
     # get_asm_certs_s3()
 
     # download_s3_folder("virtuallrwcardfleet",'87/IdentityCerts', '.\ID_99')
 
-
+    # try:
+    #     data_chunk_bucket.validate_bucket_name('rtkdatalogchunks')
+    # except Exception as e:
+    #     print(f"The following exception occured: {e}\n")
+    
+    # print(data_chunk_bucket._generate_physical_name())
+    # print(data_chunk_bucket._get_resource_name_attribute(data_chunk_bucket._physical_name))
 
 if __name__ == '__main__':
     main()
