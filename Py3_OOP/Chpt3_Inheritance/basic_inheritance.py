@@ -12,6 +12,16 @@ class ContactList(list):
                 matching_contacts.append(contact)
         return matching_contacts
 
+# Extending the dictionary class
+class LongNameDict(dict):
+    def longest_key(self):
+        longest = None
+        for key in self:
+            if not longest or len(key) > len(longest):
+                longest = key
+        return longest
+    
+
 class Contact:
     all_contacts = [] # this is shared by all instances/objects of this class using Contact.all_contacts
     searchable_contacts = ContactList()
@@ -27,10 +37,7 @@ class Supplier(Contact):
     def order(self, order):
         print("If this were a real system we would send"
                 " '{}' order to '{}'".format(order, self.name))
-
-
     
-
 
 def main():
     print(f'{Contact.all_contacts}\n') 
@@ -54,7 +61,7 @@ def main():
 
     # Using search functionality in ContactList
     r = [c.name for c in Contact.searchable_contacts.search('Ebun')]
-    
+
     # Same as the above
     d = []
     for c in Contact.searchable_contacts.search('Ebun'):
@@ -62,6 +69,15 @@ def main():
     
     print(f'd list: {d}')
     print(f'r list: {r}')
+
+    # Creating an instance of and testing the LongNameDict class
+    longkeys = LongNameDict()
+
+    longkeys['hello'] = 1
+    longkeys['longest yet'] = 20
+    longkeys['hello2'] = 'halleluyah'
+
+    print(longkeys.longest_key())
 
 if __name__ == '__main__':
     main()
