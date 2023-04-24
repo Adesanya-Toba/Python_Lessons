@@ -9,9 +9,9 @@ class Contact:
         self.all_contacts.append(self)
 
 class AddressHolder:
-    def __init__(self, street='', city='', state='', code='', phone='',
+    def __init__(self, street='', city='', state='', code='',
                  **kwargs) -> None:
-        super().__init__(**kwargs)
+        # super().__init__(**kwargs)
         self.street = street
         self.city = city
         self.state = state
@@ -21,10 +21,20 @@ class Friend(Contact, AddressHolder):
     def __init__(self, **kwargs):
         # if we want 'phone' to be available in the kwargs dictionary,
         # we could update kwargs before calling super.
-        # kwargs.update(dict(phonez=phone))
+        # kwargs.update(dict(phone=phone))
         # OR
         # kwargs.update({'phone': phone})
         # print(kwargs)
+        # OR
+        # We could remove phone as an explicit argument and let kwargs handle
+        # Friend can get the value of phone by looking it up in the kwargs dictionary
+        '''NOTE: When using **kwargs in super().__init__(), ensure the init functions 
+        of at least one of the parent classes require all or some the items in kwargs,
+        as kwargs will be unpacked (i.e. elements will be exported to the parameter list
+        of the init function and deleted from kwargs) and must be empty by the time the 
+        call to super() is reached.
+        This is only neccessary if the init function of parent class also calls 
+        super().__init(**kwargs).'''
         super().__init__(**kwargs)
         self.phone = kwargs['phone']
         print(self.phone)
