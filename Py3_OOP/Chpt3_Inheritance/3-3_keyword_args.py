@@ -49,6 +49,9 @@ def main():
     AFriend = Friend(name='Toba', email= 'Toba@you.com', phone= 901)
     print(AFriend)
 
+    BContact = Contact('Ebun', 'ebun@gmail.com')
+    BContact.assign(99)
+
     AFriend.assign(27, name= AFriend.name, payload= 'Hello, how are you')
 
 
