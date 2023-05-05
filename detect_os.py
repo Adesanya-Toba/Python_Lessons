@@ -30,7 +30,7 @@ from typing import Union
 from typing_extensions import TypeAlias
 
 special_var:TypeAlias = Union [str, int, None]
-special_var2: TypeAlias = str | int | None # requires python 3.10
+# special_var2: TypeAlias = str | int | None # requires python 3.10
 
 _sp_str: special_var = 'hello'
 print(_sp_str.upper())
