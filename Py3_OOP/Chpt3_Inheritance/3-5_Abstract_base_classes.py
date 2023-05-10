@@ -33,7 +33,7 @@ class MediaLoader(metaclass=abc.ABCMeta):
     def ext(self):
         pass
 
-    @classmethod # Meaning this method can be called on a Class instead of an instatiated object.
+    @classmethod # Meaning this method can be called on a Class instead of an instantiated object.
     def __subclasshook__(cls, C):
         '''This says that any class that supplies the concrete implementations of
         all the attributes of this ABC should be considered a subclass of 
