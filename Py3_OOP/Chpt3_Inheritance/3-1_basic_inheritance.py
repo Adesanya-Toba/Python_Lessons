@@ -32,6 +32,17 @@ class Contact:
         self.searchable_contacts.append(self) # Adding this object to its own version of searchable_contacts
         Contact.all_contacts.append(self) # Adding this object to the all_contacts variable
 
+    # Adding a representation method for the object
+    def __repr__(self) -> str:
+        '''Creates a representation of an object, so that our objects
+        look more meaningful when called with print(object).
+        '''
+        return (
+            f'{self.__class__.__name__}('
+            f'{self.name!r}, {self.email!r}'
+            f')'
+        )
+
 
 class Supplier(Contact):
     def order(self, order):
@@ -78,6 +89,9 @@ def main():
     longkeys['hello2'] = 'halleluyah'
 
     print(longkeys.longest_key())
+
+    print()
+    print(AContact)
 
 if __name__ == '__main__':
     main()
