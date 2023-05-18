@@ -32,6 +32,9 @@ if __name__ == '__main__':
            else f'There are many!'
            )
     print(msg)
+
+    # raise MyCustomException('Who do you think you are?')
+
     # Catching system exceptions
     cnt = 0
     while True:
@@ -43,5 +46,3 @@ if __name__ == '__main__':
             print("Why do you wanna stop me! Haha, you can't!!")
             if cnt == 0: raise BaseException("I'll let you go now. Lol")
             cnt -= 1
-
-        # raise MyCustomException('Who do you think you are?')
