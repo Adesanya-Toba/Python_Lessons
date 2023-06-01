@@ -2,6 +2,7 @@ class Contact:
     all_contacts = []
 
     def __init__(self, name='', email='', **kwargs) -> None:
+        print(kwargs)
         super().__init__(**kwargs)
         self.name = name
         self.email = email
@@ -11,7 +12,8 @@ class Contact:
 class AddressHolder:
     def __init__(self, street='', city='', state='', code='',
                  **kwargs) -> None:
-        # super().__init__(**kwargs)
+        print(kwargs)
+        super().__init__(**kwargs)
         self.street = street
         self.city = city
         self.state = state
@@ -35,21 +37,28 @@ class Friend(Contact, AddressHolder):
         call to super() is reached.
         This is only neccessary if the init function of parent class also calls 
         super().__init(**kwargs).'''
-        super().__init__(**kwargs)
+        print(kwargs)
+        new_kwargs = collect_kwargs(**kwargs)
+        print(new_kwargs)
+        super().__init__(new_kwargs)
         self.phone = kwargs['phone']
         print(self.phone)
 
-    def assign(self,age, **kwargs):
+    def assign(self,age,name, **kwargs):
         self.age = age
-        self.my_name = kwargs['name']
+        # self.my_name = kwargs['name']
         self.payload = kwargs['payload']
         print(self.payload)
+        print(kwargs)
+
+def collect_kwargs(name, phone, **kwargs):
+    return kwargs
 
 def main():
     AFriend = Friend(name='Toba', email= 'Toba@you.com', phone= 901)
     print(AFriend)
 
-    AFriend.assign(27, name= AFriend.name, payload= 'Hello, how are you')
+    AFriend.assign(27, name= AFriend.name, payload= 'Hello, how are you', more_data='hello again')
 
 
 if __name__ == '__main__':

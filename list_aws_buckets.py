@@ -7,7 +7,7 @@ import os
 # Understanding imports in Python -Python 3 OOP (Dusty Phillips)
 # import create_folder as cf
 # from create_folder import handleRemoveReadonly as hrm
-# from .HelloWorld.Classes import Point
+from HelloWorld.Classes import Point
 
 
 s3 = boto3.resource('s3')
