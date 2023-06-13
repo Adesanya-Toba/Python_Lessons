@@ -35,7 +35,7 @@ class Friend(Contact, AddressHolder):
         as kwargs will be unpacked (i.e. elements will be exported to the parameter list
         of the init function and deleted from kwargs) and must be empty by the time the 
         call to super() is reached.
-        This is only neccessary if the init function of parent class also calls 
+        This is only necessary if the init function of parent class also calls 
         super().__init(**kwargs).'''
         print(kwargs)
         new_kwargs = collect_kwargs(**kwargs)
