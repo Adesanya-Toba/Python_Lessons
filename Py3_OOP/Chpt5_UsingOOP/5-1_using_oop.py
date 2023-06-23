@@ -51,13 +51,18 @@ class Polygon3:
 if __name__ == '__main__':
     var1 = (1, 2, 3)
     var2 = ('a', 'b', 'c', 'd', 'e')
+    # print(*var2) # Prints the values without parenthesis or square brackets
+    print(a for a in var2) # Prints generator object of the list
+    print([a for a in var2]) # Prints values in the list
 
     # print(var2[2:]) # print everything from the 2th element
     # print(var2[:3]) # print the first 3 items in the list
 
     result = zip(var1, var2)
-    # print(p3, p2 in result)
-    # print(set(result))
+    print( {p2 for p2 in result})
+    # for p4 in result:
+    #     print(p4)
+    print([result])
 
-    square = Polygon2([Point(1,1), Point(1,2), Point(2,2), Point(2,1)])
-    print(square.perimeter())
+    # square = Polygon2([Point(1,1), Point(1,2), Point(2,2), Point(2,1)])
+    # print(square.perimeter())
