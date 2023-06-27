@@ -35,6 +35,8 @@ async def sleepers(how_many:int = 5):
     await asyncio.gather(*tasks)
 
 if __name__ == '__main__':
-    asyncio.run(sleepers(5))
+    # asyncio.run(sleepers(5))
+
+    asyncio.run(random_sleep(5))
     print('Done with the sleepers!')
 

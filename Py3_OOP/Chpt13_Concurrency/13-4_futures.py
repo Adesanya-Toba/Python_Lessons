@@ -22,8 +22,8 @@ class ImportVisitor(ast.NodeVisitor):
         self.imports:Set[str] = set()
 
     def visit_Import(self, node: ast.Import) -> None:
-        for alais in node.names:
-            self.imports.add(alais.name)
+        for alias in node.names:
+            self.imports.add(alias.name)
 
     def visit_ImportFrom(self, node: ast.ImportFrom) -> None:
         if node.module:
@@ -34,3 +34,7 @@ def find_imports(path:Path) -> ImportResult:
     iv = ImportVisitor()
     iv.visit(tree)
     return ImportResult(path, iv.imports)
+
+def main() -> None:
+    # Finish this later
+    pass
