@@ -3,12 +3,15 @@ import time
 from multiprocessing import Process, Event
 from multiprocessing import synchronize
 
+
+# Notice multiprocessing.Event is a function (not a class like threading.Event)
+# which returns a synchronize.Event instance
+
 def spin(msg:str, done:synchronize.Event) -> None:
     for char in itertools.cycle(r'\|/-'):
         status:str = f'\r{char} {msg}'
         print(status, end='', flush=True)
         if done.wait(0.1):
-            
             break
 
     blanks = ' ' * len(status) # type:ignore
@@ -19,7 +22,7 @@ def slow():
     return 42
 
 def supervisor() -> int:
-    done = Event()
+    done = Event() # Essentially a function call
     spinner = Process(target=spin, args=('thinking!', done))
     print(f'spinner object: {spinner}')
     spinner.start()

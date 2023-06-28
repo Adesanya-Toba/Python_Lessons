@@ -16,10 +16,11 @@ def spin(msg:str, done:Event):
         status:str = f'\r{char} {msg}'
         print(status, end='', flush=True)
         if done.wait(0.1):
-            
             break
-
+    
+    # print('Out of the for loop.')
     blanks = ' ' * len(status) # type:ignore
+    time.sleep(2)
     print(f'\r{blanks}\r', end='')
 
 
@@ -38,7 +39,6 @@ def supervisor() -> int:
     spinner.start()
 
     # This calls slow and blocks the main thread while the secondary thread is running the spinner function
-    
     result  = slow()
 
     # When the main thread sets the done event, the spinner thread will eventually notice
