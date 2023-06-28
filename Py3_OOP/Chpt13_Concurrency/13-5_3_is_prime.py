@@ -1,10 +1,6 @@
 import itertools
 import asyncio
-import time
-
-#NOTE: : invoking a coroutine as coro() immediately returns a
-# coroutine object, but does not run the body of the coro function.
-# Driving the body of coroutines is the job of the event loop.
+import math
 
 def main() ->None:
     result = asyncio.run(supervisor())
@@ -22,10 +18,27 @@ async def spin(msg:str) -> None:
     blanks = ' ' * len(status) # type:ignore
     print(f'\r{blanks}\r', end='')
 
+async def is_prime(n:int) -> bool:
+    if n < 2:
+        return False
+    if n == 2:
+        return True
+    if n%2 == 0:
+        return False
+    
+    root = math.isqrt(n)
+    for i in range(3, root + 1, 2):
+        if n % i == 0:
+            return False
+        if i % 100_000 == 1:
+            await asyncio.sleep(0)
+    return True
+
 async def slow():
     print('in slow()')
-    await asyncio.sleep(3.0)
-    return 42
+    ans = await is_prime(5_000_111_000_222_021)
+    # await asyncio.sleep(3)
+    return ans
 
 async def supervisor() -> int:
     # asyncio.create_task schedules the eventual execution of spin. It doesn't run immediately
@@ -38,7 +51,6 @@ async def supervisor() -> int:
     # i.e. called from supervisor to transfer control to the object returned by slow()
     # This suspends the current coroutine until the body of coroutine() i.e. slow() returns
     result = await slow()
-
     # This raises a CancelledError exception inside the spin coroutine and we use it to exit the for loop in spin
     spinner.cancel()
     return result
