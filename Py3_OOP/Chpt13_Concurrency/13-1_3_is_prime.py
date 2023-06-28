@@ -1,15 +1,7 @@
+import math
 import itertools
 import time
 from threading import Thread, Event
-
-# The threading.Event class is Python’s simplest signalling mechanism to coordinate
-# threads. An Event instance has an internal boolean flag that starts as False. Calling
-# Event.set() sets the flag to True. While the flag is false, if a thread calls
-# Event.wait(), it is blocked until another thread calls Event.set(), at which time
-# Event.wait() returns True. If a timeout in seconds is given to Event.wait(s), this
-# call returns False when the timeout elapses, or returns True as soon as Event.set()
-# is called by another thread
-
 
 def spin(msg:str, done:Event):
     for char in itertools.cycle(r'\|/-'):
@@ -22,14 +14,25 @@ def spin(msg:str, done:Event):
     blanks = ' ' * len(status) # type:ignore
     print(f'\r{blanks}\r', end='')
 
+def is_prime(n:int) -> bool:
+    if n < 2:
+        return False
+    if n == 2:
+        return True
+    if n%2 == 0:
+        return False
+    
+    root = math.isqrt(n)
+    for i in range(3, root + 1, 2):
+        if n % i == 0:
+            return False
+    return True
 
-def slow():
-    time.sleep(3)
-    return 42
+def slow(n:int):
+    ans = is_prime(n)
+    # time.sleep(3)
+    return ans
 
-
-# The threading.Event instance is the key to coordinate the activities of the main
-# thread and the spinner thread
 def supervisor() -> int:
     done = Event() # We use the Event instance to coordinate activities of the main and spinner thread
 
@@ -38,7 +41,7 @@ def supervisor() -> int:
     spinner.start()
 
     # This calls slow and blocks the main thread while the secondary thread is running the spinner function
-    result  = slow()
+    result  = slow(5_000_111_000_222_021)
 
     # When the main thread sets the done event, the spinner thread will eventually notice
     # and exit cleanly
