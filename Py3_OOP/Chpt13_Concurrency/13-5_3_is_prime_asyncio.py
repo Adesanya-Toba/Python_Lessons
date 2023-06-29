@@ -31,7 +31,7 @@ async def is_prime(n:int) -> bool:
         if n % i == 0:
             return False
         if i % 100_000 == 1:
-            await asyncio.sleep(0)
+            await asyncio.sleep(0) #call asyncio.sleep(0) in an await expression to yield control back to the event loop
     return True
 
 async def slow():

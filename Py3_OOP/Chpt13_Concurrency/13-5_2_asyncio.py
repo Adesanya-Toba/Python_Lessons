@@ -2,7 +2,7 @@ import itertools
 import asyncio
 import time
 
-#NOTE: : invoking a coroutine as coro() immediately returns a
+#NOTE: invoking a coroutine as coro() immediately returns a
 # coroutine object, but does not run the body of the coro function.
 # Driving the body of coroutines is the job of the event loop.
 
