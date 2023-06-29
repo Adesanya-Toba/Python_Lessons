@@ -18,6 +18,7 @@ def download_many(cc_list:list[str]) -> int:
         # print(executor._threads)
     return len(list(res))
 
+# Using futures.ThreadPoolExecutor
 def download_many_as_completed(cc_list:list[str]) -> int:
     cc_list = cc_list[:5]
     with futures.ThreadPoolExecutor(max_workers=3) as executor:
@@ -28,7 +29,27 @@ def download_many_as_completed(cc_list:list[str]) -> int:
             print(f'Scheduled for {cc}: {future}')
 
         print()
-        time.sleep(4)
+        # time.sleep(4)
+
+        # as_completed yields futures as they are completed.
+        for count, future in enumerate(futures.as_completed(to_do), 1):
+            res:str = future.result()
+            print(f'{future} result: {res!r}')
+    
+    return count #type:ignore
+
+# Using futures.ProcessPoolExecutor
+def download_many_as_completed_process_pool(cc_list:list[str]) -> int:
+    cc_list = cc_list[:5]
+    with futures.ProcessPoolExecutor(max_workers=8) as executor:
+        to_do:list[futures.Future] = []
+        for cc in sorted(cc_list):
+            future = executor.submit(download_one, cc)
+            to_do.append(future)
+            print(f'Scheduled for {cc}: {future}')
+
+        print()
+        # time.sleep(4)
 
         for count, future in enumerate(futures.as_completed(to_do), 1):
             res:str = future.result()
@@ -37,4 +58,4 @@ def download_many_as_completed(cc_list:list[str]) -> int:
     return count #type:ignore
 
 if __name__ == '__main__':
-    flags.main(download_many_as_completed)
+    flags.main(download_many_as_completed_process_pool)
