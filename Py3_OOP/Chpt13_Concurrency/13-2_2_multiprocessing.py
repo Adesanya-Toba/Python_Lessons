@@ -1,13 +1,18 @@
 import itertools
 import time
+import logging
 from multiprocessing import Process, Event
 from multiprocessing import synchronize
 
+logging.basicConfig(level=logging.DEBUG, format='%(processName)-11s %(threadName)-11s [%(levelname)s]: %(message)s')
+logger = logging.getLogger()
+logger.setLevel(level=logging.INFO)
 
 # Notice multiprocessing.Event is a function (not a class like threading.Event)
 # which returns a synchronize.Event instance
 
 def spin(msg:str, done:synchronize.Event) -> None:
+    logger.info('Inside spinner process.')
     for char in itertools.cycle(r'\|/-'):
         status:str = f'\r{char} {msg}'
         print(status, end='', flush=True)
@@ -24,17 +29,17 @@ def slow():
 def supervisor() -> int:
     done = Event() # Essentially a function call
     spinner = Process(target=spin, args=('thinking!', done))
-    print(f'spinner object: {spinner}')
+    logger.info(f'spinner object: {spinner}')
     spinner.start()
     result = slow()
 
     done.set()
-    spinner.join()
+    spinner.join() # Wait for spinner process to finish
     return result
 
 def main() -> None:
     result = supervisor() # This will return the result of slow
-    print(f'Answer: {result}')
+    logger.info(f'Answer: {result}')
 
 if __name__ == '__main__':
     main()

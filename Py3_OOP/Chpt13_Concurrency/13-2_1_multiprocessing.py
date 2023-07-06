@@ -12,22 +12,27 @@ for each process.
 from multiprocessing import Process, cpu_count
 import time
 import os
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format='%(processName)-11s %(threadName)-11s [%(levelname)s]: %(message)s')
+logger = logging.getLogger()
+logger.setLevel(level=logging.INFO)
 
 class MuchCPU(Process):
     def run(self):
-        print(f'OS PID: {os.getpid()}')
+        logger.info(f'OS PID: {os.getpid()}')
 
         s = sum(2*i+1 for i in range(100_000_000))
 
 if __name__ == '__main__':
-    print(cpu_count())
+    logger.info(f'CPU count: {cpu_count()}')
 
     num = (i for i in range(10))
-    # print(list(num))
+    # logger.info(list(num))
     workers = [MuchCPU() for f in range(cpu_count())]
     t = time.perf_counter()
     for p in workers:
         p.start()
     for p in workers:
         p.join()
-    print(f'Work took {time.perf_counter() - t:.3f} seconds')
+    logger.info(f'Work took {time.perf_counter() - t:.3f} seconds')

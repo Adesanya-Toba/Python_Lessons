@@ -5,7 +5,12 @@ proceed while the program is waiting for I/O to happen.
 import time
 import math
 import random
+import logging
 from threading import Thread, Lock
+
+logging.basicConfig(level=logging.DEBUG, format='%(processName)s %(threadName)-11s [%(levelname)s]: %(message)s')
+logger = logging.getLogger()
+logger.setLevel(level=logging.INFO)
 
 THE_ORDERS = [
     'Reuben',
@@ -35,7 +40,7 @@ class Chef(Thread):
             self.total += math.factorial(i)
             if time.monotonic() >= target:
                 break
-        print(f'{time.monotonic():.3f} {self.name} made {self.order}')
+        logger.info(f'{time.monotonic():.3f} {self.name} made {self.order}')
 
     def run(self):
         while True:

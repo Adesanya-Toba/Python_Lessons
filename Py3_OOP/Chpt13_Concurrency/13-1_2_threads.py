@@ -1,6 +1,7 @@
 import itertools
 import time
 from threading import Thread, Event
+import logging
 
 # The threading.Event class is Python’s simplest signalling mechanism to coordinate
 # threads. An Event instance has an internal boolean flag that starts as False. Calling
@@ -10,8 +11,12 @@ from threading import Thread, Event
 # call returns False when the timeout elapses, or returns True as soon as Event.set()
 # is called by another thread
 
+logging.basicConfig(level=logging.DEBUG, format='%(processName)s %(threadName)-13s [%(levelname)s]: %(message)s')
+logger = logging.getLogger()
+logger.setLevel(level=logging.INFO)
 
 def spin(msg:str, done:Event):
+    logger.info('Inside spinner thread!')
     for char in itertools.cycle(r'\|/-'):
         status:str = f'\r{char} {msg}'
         print(status, end='', flush=True)
@@ -33,8 +38,8 @@ def slow():
 def supervisor() -> int:
     done = Event() # We use the Event instance to coordinate activities of the main and spinner thread
 
-    spinner = Thread(target=spin, args=('thinking!', done))
-    print(f'Spinner object: {spinner}')
+    spinner = Thread(target=spin, args=('thinking!', done), name='SpinnerThread')
+    logger.info(f'Spinner object: {spinner}')
     spinner.start()
 
     # This calls slow and blocks the main thread while the secondary thread is running the spinner function
@@ -49,7 +54,7 @@ def supervisor() -> int:
 
 def main() ->None:
     result = supervisor() # This will return the result of slow
-    print(f'Answer: {result}')
+    logger.info(f'Answer: {result}')
 
 if __name__ == '__main__':
     main()
