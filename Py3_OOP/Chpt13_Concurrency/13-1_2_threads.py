@@ -13,7 +13,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG, format='%(processName)s %(threadName)-13s [%(levelname)s]: %(message)s')
 logger = logging.getLogger()
-logger.setLevel(level=logging.INFO)
+
 
 def spin(msg:str, done:Event):
     logger.info('Inside spinner thread!')

@@ -8,9 +8,10 @@ import random
 import logging
 from threading import Thread, Lock
 
-logging.basicConfig(level=logging.DEBUG, format='%(processName)s %(threadName)-11s [%(levelname)s]: %(message)s')
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(threadName)-11s [%(levelname)s]: %(message)s',
+                    datefmt='%H:%M:%S'
+                    )
 logger = logging.getLogger()
-logger.setLevel(level=logging.INFO)
 
 THE_ORDERS = [
     'Reuben',

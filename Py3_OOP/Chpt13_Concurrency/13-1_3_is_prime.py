@@ -29,9 +29,9 @@ def is_prime(n:int) -> bool:
     return True
 
 def slow(n:int):
-    ans = is_prime(n)
-    # time.sleep(3)
-    return ans
+    # ans = is_prime(n)
+    time.sleep(5)
+    return 44
 
 def supervisor() -> int:
     done = Event() # We use the Event instance to coordinate activities of the main and spinner thread

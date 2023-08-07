@@ -5,7 +5,6 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG, format='%(processName)-11s %(threadName)-11s [%(levelname)s]: %(message)s')
 logger = logging.getLogger()
-logger.setLevel(level=logging.INFO)
 
 flags = importlib.import_module('13-4_2_flags')
 # import flags.save_flag
