@@ -1,5 +1,7 @@
 '''
 List comprehension and Generator Expressions
+A quick way to build a sequence is using a list comprehension (if the target is a list)
+or a generator expression (for other kinds of sequences).
 '''
 
 x = 'ABC'
@@ -14,3 +16,12 @@ print(codes)
 b_codes = [last:= ord(char) for char in x]
 print('last: ', last)
 print(b_codes)
+
+# Filtering using list comps
+symbols = '$¢£¥€¤'
+beyond_ascii = [ord(s) for s in symbols if ord(s) > 127]
+print(beyond_ascii)
+
+# Doing this without list comps would require the use of lambdas
+beyond_ascii = list(filter(lambda c: c > 127, map(ord, symbols)))
+print(beyond_ascii)
