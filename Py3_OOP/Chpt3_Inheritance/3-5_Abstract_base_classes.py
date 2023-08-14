@@ -71,8 +71,28 @@ class DecoratorTest():
     def another_func(self):
         print('Printing from a non-class method.')
 
+    @staticmethod
+    def stat_func():
+        '''
+        This works without the staticmethod decorator
+        but we should add it for type checking.
+        
+        It doesn't really do much and isn't super useful it just says the 
+        function is closely related to this class even though it doesn't 
+        use any of the class attributes. 
+
+        It works just like a regular function and could have easily been defined
+        outside of the class.
+        '''
+        print('Printing from a static method')
+
 # x = Wav() # Will not work because the Wav class doesn't implement play() or ext
 y = Ogg()
 
 DecoratorTest.decor_print()
 # DecoratorTest.another_func() # Does not work.
+DecoratorTest.stat_func()
+
+# Only works with objects of class DecoratorTest
+dec = DecoratorTest()
+dec.another_func()
