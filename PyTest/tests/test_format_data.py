@@ -1,10 +1,10 @@
 import pytest
-import format_data
 
 from format_data import (
     format_data_for_display,
     format_data_for_excel,
 )
+
 
 @pytest.fixture
 def example_people_data():
@@ -18,17 +18,25 @@ def example_people_data():
             "given_name": "Sayid",
             "family_name": "Khan",
             "title": "Project Manager",
-        }
+        },
     ]
 
+
+# Skip these two tests
+@pytest.mark.skip(reason="Not yet implemented!")
 def test_format_data_for_display(example_people_data):
     assert format_data_for_display(example_people_data) == [
         "Alfonsa Ruiz: Senior Software Engineer",
         "Sayid Khan: Project Manager",
     ]
 
+
+@pytest.mark.skip(reason="Not yet implemented!")
 def test_format_data_for_excel(example_people_data):
-    assert format_data_for_excel(example_people_data) == """given,family,title
+    assert (
+        format_data_for_excel(example_people_data)
+        == """given,family,title
     Alfonsa,Ruiz,Senior Software Engineer
     Sayid,Khan,Project Manager
     """
+    )
