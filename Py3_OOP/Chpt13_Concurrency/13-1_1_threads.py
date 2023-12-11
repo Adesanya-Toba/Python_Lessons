@@ -1,31 +1,34 @@
-'''A thread is a sequence of Python byte-code instructions that may be interrupted and 
+"""A thread is a sequence of Python byte-code instructions that may be interrupted and 
 resumed. The idea is to create separate, concurrent threads to allow computation to 
 proceed while the program is waiting for I/O to happen. 
-'''
+"""
 import time
 import math
 import random
 import logging
 from threading import Thread, Lock
 
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(threadName)-11s [%(levelname)s]: %(message)s',
-                    datefmt='%H:%M:%S'
-                    )
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s %(threadName)-11s [%(levelname)s]: %(message)s",
+    datefmt="%H:%M:%S",
+)
 logger = logging.getLogger()
 
 THE_ORDERS = [
-    'Reuben',
-    'Ham and Cheese',
-    'Monte Cristo',
-    'Tuna Melt',
-    'Cuban',
-    'Grilled Cheese',
-    'French Dip',
-    'BLT',
+    "Reuben",
+    "Ham and Cheese",
+    "Monte Cristo",
+    "Tuna Melt",
+    "Cuban",
+    "Grilled Cheese",
+    "French Dip",
+    "BLT",
 ]
 
+
 class Chef(Thread):
-    def __init__(self, name:str):
+    def __init__(self, name: str):
         super().__init__(name=name)
         self.total = 0
 
@@ -33,15 +36,14 @@ class Chef(Thread):
         self.order = THE_ORDERS.pop(0)
 
     def prepare(self):
-        '''Simulate doing a lot of work with BIG computation.
-        '''
+        """Simulate doing a lot of work with BIG computation."""
         start = time.monotonic()
         target = start + 1 + random.random()
         for i in range(1_000_000_000):
             self.total += math.factorial(i)
             if time.monotonic() >= target:
                 break
-        logger.info(f'{time.monotonic():.3f} {self.name} made {self.order}')
+        logger.info(f"{time.monotonic():.3f} {self.name} made {self.order}")
 
     def run(self):
         while True:
@@ -49,12 +51,13 @@ class Chef(Thread):
                 self.get_order()
                 self.prepare()
             except IndexError:
-                break # No more orders
+                break  # No more orders
 
-Mo = Chef('Micheal')
-Constantine = Chef('Constantine')
 
-if __name__ == '__main__':
+Mo = Chef("Micheal")
+Constantine = Chef("Constantine")
+
+if __name__ == "__main__":
     random.seed(2)
     Mo.start()
     Constantine.start()

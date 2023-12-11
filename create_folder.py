@@ -1,9 +1,11 @@
 import os
 import shutil
-import  errno, stat
+import errno
+import stat
 
 cert_dir = ".\HelloWorld"
-key_dir = 'ID_99'
+key_dir = "ID_99"
+
 
 def handleRemoveReadonly(func, path, exc):
     excvalue = exc[1]
@@ -17,15 +19,17 @@ def handleRemoveReadonly(func, path, exc):
         # func(path)
         raise
 
-def LRWC_cleanUp(LRWC_devices: list= None) -> None:
+
+def LRWC_cleanUp() -> None:
     # Delete certificate directories
     print("\nDeleting Certificate directories..")
     try:
-        shutil.rmtree('.\ID_98', ignore_errors=False, onerror=handleRemoveReadonly)
-                
+        shutil.rmtree(".\ID_98", ignore_errors=False,
+                      onerror=handleRemoveReadonly)
+
     except Exception as e:
-        print("Error deleting files!")
-        exit(e)
+        print("Error deleting files!", e)
+        exit(0)
 
 
 path = os.path.join(cert_dir, key_dir)
@@ -37,5 +41,3 @@ else:
     print("Key directory exists!")
 
 LRWC_cleanUp()
-
-

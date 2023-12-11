@@ -8,4 +8,4 @@ val = 5
 print(f.squareroot(val))
 print(f.square(val))
 
-print (new_Dog)
+print(new_Dog)
