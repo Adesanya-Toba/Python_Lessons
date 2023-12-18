@@ -1,7 +1,7 @@
-"""A thread is a sequence of Python byte-code instructions that may be interrupted and 
-resumed. The idea is to create separate, concurrent threads to allow computation to 
-proceed while the program is waiting for I/O to happen. 
-"""
+# A thread is a sequence of Python byte-code instructions that may be interrupted and
+# resumed. The idea is to create separate, concurrent threads to allow computation to
+# proceed while the program is waiting for I/O to happen.
+
 import time
 import math
 import random
