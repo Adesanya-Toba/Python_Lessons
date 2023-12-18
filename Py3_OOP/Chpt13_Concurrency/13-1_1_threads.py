@@ -6,7 +6,7 @@ import time
 import math
 import random
 import logging
-from threading import Thread, Lock
+from threading import Thread
 
 logging.basicConfig(
     level=logging.DEBUG,

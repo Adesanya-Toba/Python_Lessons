@@ -39,9 +39,8 @@ def slow():
 # The threading.Event instance is the key to coordinate the activities of the main
 # thread and the spinner thread
 def supervisor() -> int:
-    done = (
-        Event()
-    )  # We use the Event instance to coordinate activities of the main and spinner thread # noqa: E501
+    # We use the Event instance to coordinate activities of the main and spinner thread # noqa: E501
+    done = Event()
 
     spinner = Thread(target=spin, args=("thinking!", done), name="SpinnerThread")
     logger.info(f"Spinner object: {spinner}")
