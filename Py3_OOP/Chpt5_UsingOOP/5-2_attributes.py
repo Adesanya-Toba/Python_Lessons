@@ -65,6 +65,7 @@ def main():
     c.name = "Black"
     try:
         c.name = ""  # Raises a ValueError because this operation goes through the
+        # _get_name function of the name property
     except ValueError:
         print("Expected value error.")
     # property (_set_name) setter function which performs input validations.
