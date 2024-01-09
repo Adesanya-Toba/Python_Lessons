@@ -96,6 +96,8 @@ class ImgTweaker(ZipProcessor):
 
 
 def main():
+    # The line below is a Fluent interface because a number of methods are used to help
+    # clarify the parameters and their relationships.
     TextTweaker(Path("Py3_OOP/Chpt5_UsingOOP/sample.zip")).find_and_replace(
         "xyzzy", "plover'egg"
     ).process_files("*.md")
