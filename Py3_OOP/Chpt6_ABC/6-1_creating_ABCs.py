@@ -7,6 +7,15 @@
 # The abc.ABC class introduces a metaclass – a class used to build the
 # concrete class definitions. Python's default metaclass is named *type*
 
+
+# TIP: To inspect an abstract and find what functions need to be implemented
+# to create concrete classes, call the __abstractmethods__ function. For
+# example:
+#
+# from collections.abc import Container
+# Container.__abstractmethods__
+
+
 import abc
 
 
@@ -25,7 +34,7 @@ class Wav(MediaLoader):
     pass
 
 
-# x = Wav() # Will raise a TypeError as the Wav class has not implemented
+# x = Wav() # Will raise a 'TypeError' as the Wav class has not implemented
 # play or ext methods meaning the MediaLoader subclass is still abstract and
 # it is impossible to instantiate an abstract class
 
