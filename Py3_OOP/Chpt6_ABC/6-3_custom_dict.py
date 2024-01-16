@@ -6,7 +6,7 @@
 # We've defined the key with the type Comparable because we
 # want to be able to compare the keys and sort them into order
 
-from __future__ import annotations
+# from __future__ import annotations
 from collections import abc
 from typing import Protocol, Any, overload, Union
 import bisect
