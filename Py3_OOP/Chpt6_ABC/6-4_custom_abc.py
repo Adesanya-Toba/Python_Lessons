@@ -1,6 +1,6 @@
 import abc
 import random
-from typing import Type
+from typing import Type, Set, Iterable
 
 
 class Die(abc.ABC):
@@ -66,3 +66,21 @@ if __name__ == "__main__":
     # Store the same value of d for every for loop iteration.
     d = [d for _ in range(4)]
     print(d)
+
+
+class YachtDice(Dice):
+    def __init__(self) -> None:
+        super().__init__(5, D6)
+        self.saved: Set[int] = set()
+
+    def saving(self, positions: Iterable[int]) -> "YachtDice":
+        if not all(0 <= n < 6 for n in positions):
+            raise ValueError("Invalid position")
+        self.saved = set(positions)
+        return self
+
+    def roll(self) -> None:
+        for n, d in enumerate(self.dice):
+            if n not in self.saved:
+                d.roll()
+        self.saved = set()
