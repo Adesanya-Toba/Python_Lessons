@@ -4,6 +4,8 @@ from moto import mock_aws
 from moto_s3 import MyModel
 import pytest
 
+# os.environ["MOTO_ALLOW_NONEXISTENT_REGION"] = "True"
+
 
 @pytest.fixture
 def aws_credentials():
@@ -12,7 +14,7 @@ def aws_credentials():
     os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
     os.environ["AWS_SECURITY_TOKEN"] = "testing"
     os.environ["AWS_SESSION_TOKEN"] = "testing"
-    os.environ["AWS_DEFAULT_REGION"] = "us-east-1"
+    # os.environ["AWS_DEFAULT_REGION"] = "us-east-3"
 
 
 @mock_aws
