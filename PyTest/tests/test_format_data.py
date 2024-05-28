@@ -5,6 +5,11 @@ from format_data import (
     format_data_for_excel,
 )
 
+"""In pytest, “fixtures” are functions we define
+to prepare everything for our test.
+
+"""
+
 
 @pytest.fixture
 def example_people_data():

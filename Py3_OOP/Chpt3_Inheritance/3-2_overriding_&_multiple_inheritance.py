@@ -33,7 +33,7 @@ order in which to call them.
 """
 
 # A 'Mixin' is simple form of multiple inheritance
-"""It's a superclass that is not meant to exist on its own but is meant to 
+"""It's a superclass that is not meant to exist on its own but is meant to be
 inherited by some other class to provide extra functionality.
 """
 
