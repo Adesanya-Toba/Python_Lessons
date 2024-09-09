@@ -1,0 +1,14 @@
+{
+	"version": "1.0",
+	"steps": [
+		{
+			"action": {
+				"name": "Retrieve-Datalog",
+				"type": "runCommand",
+				"input": {
+					"command": "${aws:iot:parameter:command}"
+				}
+			}
+		}
+	]
+}
