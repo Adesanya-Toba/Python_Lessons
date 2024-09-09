@@ -4,7 +4,7 @@ import errno
 import stat
 
 cert_dir = ".\HelloWorld"
-key_dir = "ID_99"
+key_dir = ""
 
 
 def handleRemoveReadonly(func, path, exc):
@@ -20,12 +20,11 @@ def handleRemoveReadonly(func, path, exc):
         raise
 
 
-def LRWC_cleanUp() -> None:
+def cleanUp() -> None:
     # Delete certificate directories
     print("\nDeleting Certificate directories..")
     try:
-        shutil.rmtree(".\ID_98", ignore_errors=False,
-                      onerror=handleRemoveReadonly)
+        shutil.rmtree("", ignore_errors=False, onerror=handleRemoveReadonly)
 
     except Exception as e:
         print("Error deleting files!", e)
@@ -40,4 +39,4 @@ if not os.path.isdir(path):
 else:
     print("Key directory exists!")
 
-LRWC_cleanUp()
+cleanUp()
